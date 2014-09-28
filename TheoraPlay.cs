@@ -41,26 +41,7 @@ public class TheoraPlay
 		THEORAPLAY_VIDFMT_RGBA
 	}
 
-	[StructLayout(LayoutKind.Explicit)]
-	private struct THEORAPLAY_VideoFrame32
-	{
-		[FieldOffset(0)]
-			public uint playms;
-		[FieldOffset(4)]
-			public double fps;
-		[FieldOffset(12)]
-			public uint width;
-		[FieldOffset(16)]
-			public uint height;
-		[FieldOffset(20)]
-			public THEORAPLAY_VideoFormat format;
-		[FieldOffset(24)]
-			public IntPtr pixels;	// unsigned char*
-		[FieldOffset(32)]
-			public IntPtr next;	// struct THEORAPLAY_VideoFrame*
-	}
-
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct THEORAPLAY_VideoFrame
 	{
 		public uint playms;
@@ -152,25 +133,8 @@ public class TheoraPlay
 		THEORAPLAY_VideoFrame theFrame;
 		unsafe
 		{
-			/* This is only a problem for Mono. Ignore for Win32 */
-			if (	Environment.OSVersion.Platform != PlatformID.Win32NT &&
-				IntPtr.Size == 4	)
-			{
-				THEORAPLAY_VideoFrame32* frame32Ptr = (THEORAPLAY_VideoFrame32*) frame;
-				THEORAPLAY_VideoFrame32 frame32 = *frame32Ptr;
-				theFrame.playms = frame32.playms;
-				theFrame.fps = frame32.fps;
-				theFrame.width = frame32.width;
-				theFrame.height = frame32.height;
-				theFrame.format = frame32.format;
-				theFrame.pixels = frame32.pixels;
-				theFrame.next = frame32.next;
-			}
-			else
-			{
-				THEORAPLAY_VideoFrame* framePtr = (THEORAPLAY_VideoFrame*) frame;
-				theFrame = *framePtr;
-			}
+			THEORAPLAY_VideoFrame* framePtr = (THEORAPLAY_VideoFrame*) frame;
+			theFrame = *framePtr;
 		}
 		return theFrame;
 	}
