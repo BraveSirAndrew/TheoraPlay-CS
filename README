@@ -1,3 +1,7 @@
+This fork of the original project has been slightly modified to work with Android.
+It also includes a precompiled version of libtheoraplay, compiled for amreabi-v7a
+with NEON. Instructions are included for compiling for different hardware.
+
 This is TheoraPlay#, a C# wrapper for TheoraPlay, a library for quickly and
 easily decoding Ogg Theora videos.
 
