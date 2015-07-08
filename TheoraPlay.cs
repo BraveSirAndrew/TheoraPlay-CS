@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 
 public static class TheoraPlay
 {
-	const string theoraplay_libname = "libtheoraplay.dll";
+	const string theoraplay_libname = "libtheoraplay.so";
 
 	public enum THEORAPLAY_VideoFormat
 	{
@@ -153,8 +153,9 @@ public static class TheoraPlay
 		unsafe
 		{
 			/* This is only a problem for Mono. Ignore for Win32 */
-			if (	Environment.OSVersion.Platform != PlatformID.Win32NT &&
-				IntPtr.Size == 4	)
+			if (Environment.OSVersion.Platform != PlatformID.Win32NT && 
+				Environment.OSVersion.Platform != PlatformID.Unix &&
+				IntPtr.Size == 4)
 			{
 				THEORAPLAY_VideoFrame32* frame32Ptr = (THEORAPLAY_VideoFrame32*) frame;
 				THEORAPLAY_VideoFrame32 frame32 = *frame32Ptr;

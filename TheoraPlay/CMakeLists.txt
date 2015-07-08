@@ -1,5 +1,6 @@
 # TheoraPlay CMake File
 # Written by Ethan "flibitijibibo" Lee
+# Modified for Android by Andrew O'Connor
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 PROJECT(TheoraPlay)
 
@@ -21,7 +22,6 @@ INCLUDE_DIRECTORIES(include)
 
 # Target
 ADD_LIBRARY(theoraplay SHARED src/theoraplay.c)
-TARGET_LINK_LIBRARIES(theoraplay ogg)
 TARGET_LINK_LIBRARIES(theoraplay vorbis)
 TARGET_LINK_LIBRARIES(theoraplay theoradec)
-TARGET_LINK_LIBRARIES(theoraplay pthread)
+TARGET_LINK_LIBRARIES(theoraplay ogg)
