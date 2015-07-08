@@ -1,0 +1,14 @@
+# How to build
+
+You'll need the Android NDK, and also cmake.
+
+Easiest way to build all this is to checkout android-cmake from https://github.com/taka-no-me/android-cmake. Open a command prompt in the TheoraPlay folder (make sure cmake is in your path) and follow these instructions from the android-cmake readme:
+
+	cmake -DCMAKE_TOOLCHAIN_FILE=android.toolchain.cmake \
+      -DANDROID_NDK=<ndk_path>                       \
+      -DCMAKE_BUILD_TYPE=Release                     \
+      -DANDROID_ABI="armeabi-v7a with NEON"          \
+      .
+	cmake --build .
+
+This will build everything and put libtheoraplay.so in the Debug folder.
